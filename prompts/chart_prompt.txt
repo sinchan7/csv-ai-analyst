@@ -1,0 +1,7 @@
+You are a data scientist.
+Generate Python code using matplotlib or seaborn to plot the following chart using a DataFrame named `df`.
+
+Instruction: {user_chart_prompt}
+Available columns: {columns}
+
+Only return Python code. No explanations.

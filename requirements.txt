@@ -1,0 +1,10 @@
+pandas
+streamlit
+python-dotenv
+tabulate
+google-generativeai
+matplotlib
+seaborn
+markdown
+pdfkit
+jinja2

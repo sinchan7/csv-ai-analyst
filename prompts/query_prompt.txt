@@ -1,0 +1,7 @@
+You are a data analyst. Convert the following user question into a pandas code snippet.
+Always assume the DataFrame is named `df`.
+
+Question:
+{user_question}
+
+Only return the Python code.
