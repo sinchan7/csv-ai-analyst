@@ -3,6 +3,7 @@ import sys
 import traceback
 import matplotlib.pyplot as plt
 import seaborn as sns
+import streamlit as st
 
 def execute_user_code(df, code):
     local_vars = {"df": df, "plt": plt, "sns": sns}
@@ -10,8 +11,10 @@ def execute_user_code(df, code):
     sys_stdout = sys.stdout
     sys.stdout = stdout
 
+    result = None  # Default result
+
     try:
-        # Treat as evaluable expression unless it's a known statement
+        # Check if it's a single-line evaluable expression
         if code.strip().startswith(("import", "def", "for", "if", "while", "plt", "sns")) or "\n" in code:
             raise SyntaxError("Treating as statement block")
 
@@ -23,10 +26,11 @@ def execute_user_code(df, code):
             compiled_code = compile(code, "<string>", "exec")
             exec(compiled_code, {}, local_vars)
 
-            if plt.get_fignums():  # Check if any figure was generated
-                fig = plt.gcf()
-                result = fig
-                plt.clf()  # Clear the figure after capturing it
+            # If any figure is created, show it
+            if plt.get_fignums():
+                st.pyplot(plt.gcf())
+                plt.clf()  # Clear for next chart
+                result = None  # No need to return additional output
             else:
                 output = stdout.getvalue().strip()
                 result = output if output else "✅ Code executed successfully."
